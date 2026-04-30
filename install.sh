@@ -14,24 +14,29 @@ apt install -y --no-install-recommends build-essential wget curl tmux git tree u
 curl -L https://github.com/neovim/neovim-releases/releases/download/v0.12.2/nvim-linux-x86_64.deb -o /tmp/nvim-linux-x86_64.deb
 dpkg -i /tmp/nvim-linux-x86_64.deb
 apt -f install
+apt install -y --no-install-recommends tree-sitter-cli
+apt autoremove
 usermod -aG sudo $USER
 "
 
 SOURCE_DIR="$PWD/dotfiles"
 process() {
+    TARGET="${HOME%/}${1#$SOURCE_DIR}"
     if [ -e "$1/.git" ]; then
-	rm -f "${HOME%/}${1#$SOURCE_DIR}"
-	ln -s "$1" "${HOME%/}${1#$SOURCE_DIR}"
-	echo "$1 -> ${HOME%/}${1#$SOURCE_DIR}"
+        rm -f "$TARGET"
+        ln -s "$1" "$TARGET"
+        echo "$1 -> $TARGET"
     else
-	mkdir -p "${HOME%/}${1#$SOURCE_DIR}"
-	find "$1" -mindepth 1 -maxdepth 1 -type f | while read -r FILE; do
-	    rm -f "${HOME%/}${FILE#$SOURCE_DIR}"
-	    ln -s "$FILE" "${HOME%/}${FILE#$SOURCE_DIR}"
-            echo "$FILE -> ${HOME%/}${FILE#$SOURCE_DIR}"
+        mkdir -p "$TARGET"
+        find "$1" -mindepth 1 -maxdepth 1 -type f | while read -r FILE; do
+            TARGET="${HOME%/}${FILE#$SOURCE_DIR}"
+     
+            rm -f "$TARGET"
+            ln -s "$FILE" "$TARGET"
+            echo "$FILE -> $TARGET"
         done
         find "$1" -mindepth 1 -maxdepth 1 -type d | while read -r SUB; do
-	    process "$SUB"
+            process "$SUB"
         done
 
     fi
