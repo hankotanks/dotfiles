@@ -1,0 +1,6 @@
+[submodule ".config/nvim/lazy/lazy.nvim"]
+	path = .config/nvim/lazy/lazy.nvim
+	url = https://github.com/folke/lazy.nvim.git
+[submodule "dotfiles/.config/nvim/lazy/lazy.nvim"]
+	path = dotfiles/.config/nvim/lazy/lazy.nvim
+	url = https://github.com/folke/lazy.nvim.git
