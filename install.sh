@@ -2,7 +2,7 @@
 
 # configure sudo and install basics
 su - root -c "
-apt update && apt upgrade
+apt update && apt upgrade -y
 # sudo
 apt install -y --no-install-recommends sudo
 # X
@@ -11,11 +11,10 @@ apt install -y --no-install-recommends xorg xinit xclip
 apt install -y --no-install-recommends i3 alacritty
 # basics
 apt install -y --no-install-recommends build-essential wget curl tmux git tree unzip clangd cmake
-curl -L https://github.com/neovim/neovim-releases/releases/download/v0.12.2/nvim-linux-x86_64.deb -o /tmp/nvim-linux-x86_64.deb
-dpkg -i /tmp/nvim-linux-x86_64.deb
-apt -f install
+curl -fL https://github.com/neovim/neovim-releases/releases/download/v0.12.2/nvim-linux-x86_64.deb -o /tmp/nvim-linux-x86_64.deb
+apt install -y --no-install-recommends /tmp/nvim-linux-x86_64.deb
 apt install -y --no-install-recommends tree-sitter-cli
-apt autoremove
+apt autoremove -y
 usermod -aG sudo $USER
 "
 
