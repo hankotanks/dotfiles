@@ -4,6 +4,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
+vim.opt.termguicolors = false
 
 -- helper command for opening this file
 vim.api.nvim_create_user_command("RC", function()
@@ -73,7 +74,12 @@ require("lazy").setup({
       "akinsho/bufferline.nvim",
       dependencies = "nvim-tree/nvim-web-devicons",
       config = function()
-        require("bufferline").setup({})
+        require("bufferline").setup({
+            options = {
+                show_buffer_icons = false,
+                show_buffer_close_icons = false
+            },
+        })
       end
     }
 })

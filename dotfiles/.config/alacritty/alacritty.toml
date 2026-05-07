@@ -1,0 +1,3 @@
+general.import = [
+    "~/.config/alacritty/themes/gruvbox_material_hard_dark.toml"
+]
